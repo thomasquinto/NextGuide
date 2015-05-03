@@ -1,0 +1,83 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.nextguide.nextguide.GuideFragment">
+
+
+    <com.nextguide.nextguide.GuideHorizontalScrollView
+        android:id="@+id/time_header_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:scrollbars="none"
+        android:fillViewport="true"
+        >
+
+        <TextView
+            android:id="@+id/guide_time_header"
+            android:layout_width="8000dp"
+            android:layout_height="match_parent"
+            android:textSize="18dp"
+            android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            android:gravity="left"
+            android:background="#AA000000"
+            android:textColor="#000"
+
+        />
+    </com.nextguide.nextguide.GuideHorizontalScrollView>
+
+    <com.nextguide.nextguide.GuideHorizontalScrollView
+        android:id="@+id/guide_horiz_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/time_header_scroll_view"
+        android:scrollbars="none"
+        >
+
+        <com.nextguide.nextguide.GuideScrollView
+            android:id="@+id/guide_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            >
+
+            <include layout="@layout/example_guide_layout"/>
+
+        </com.nextguide.nextguide.GuideScrollView>
+
+    </com.nextguide.nextguide.GuideHorizontalScrollView>
+
+
+
+    <com.nextguide.nextguide.GuideScrollView
+        android:id="@+id/channel_scroll_view"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+
+        <!--
+        <ListView
+            android:id="@+id/channel_column"
+            android:layout_width="match_parent"
+            android:layout_height="8000dp"
+            android:layout_span="3"
+            android:padding="18dip"
+            android:background="#AAb0b0b0"
+            />
+        -->
+        <TextView
+            android:id="@+id/channel_column"
+            android:layout_width="match_parent"
+            android:layout_height="8000dp"
+            android:padding="18dip"
+            android:background="#AAb0b0b0"
+            android:text="Hover Hover Hover Hover Hover Hover"
+            />
+
+    </com.nextguide.nextguide.GuideScrollView>
+
+
+</RelativeLayout>

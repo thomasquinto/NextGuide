@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- MainActivity -->
+    <string name="app_name">NextGuide</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- GuideFragment -->
+    <string name="guide_settings">Guide Settings</string>
+
+</resources>
