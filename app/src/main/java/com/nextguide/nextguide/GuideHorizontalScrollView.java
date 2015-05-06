@@ -2,7 +2,6 @@ package com.nextguide.nextguide;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.HorizontalScrollView;
 
 import java.util.HashSet;
@@ -27,7 +26,7 @@ public class GuideHorizontalScrollView extends HorizontalScrollView
     }
 
     public void onScrollChanged(int l, int t, int old_l, int old_t) {
-        Log.d(getClass().getSimpleName(), "Scroll X: " + getScrollX());
+        //Log.d(getClass().getSimpleName(), "Scroll X: " + getScrollX());
 
         for(GuideFragment.ScrollXListener listener: mListeners) {
             listener.scrollXChanged(getScrollX());
@@ -37,7 +36,7 @@ public class GuideHorizontalScrollView extends HorizontalScrollView
     // ScrollXListener
 
     public void scrollXChanged(int x) {
-        Log.d(getClass().getSimpleName(), "Changing X Scroll to " + x);
+        //Log.d(getClass().getSimpleName(), "Changing X Scroll to " + x);
         setScrollX(x);
     }
 

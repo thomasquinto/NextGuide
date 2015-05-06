@@ -13,6 +13,7 @@
         android:layout_alignParentTop="true"
         android:scrollbars="none"
         android:fillViewport="true"
+        android:layout_marginLeft="52dp"
         >
 
         <TextView
@@ -53,21 +54,21 @@
 
     <com.nextguide.nextguide.GuideScrollView
         android:id="@+id/channel_scroll_view"
-        android:layout_width="40dp"
+        android:layout_width="52dp"
         android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
         android:fillViewport="true"
         >
 
-        <!--
-        <ListView
-            android:id="@+id/channel_column"
+        <com.nextguide.nextguide.ChannelListView
+            android:id="@+id/channel_list"
             android:layout_width="match_parent"
-            android:layout_height="8000dp"
-            android:layout_span="3"
-            android:padding="18dip"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
             android:background="#AAb0b0b0"
             />
-        -->
+
+        <!--
         <TextView
             android:id="@+id/channel_column"
             android:layout_width="match_parent"
@@ -76,6 +77,7 @@
             android:background="#AAb0b0b0"
             android:text="Hover Hover Hover Hover Hover Hover"
             />
+         -->
 
     </com.nextguide.nextguide.GuideScrollView>
 

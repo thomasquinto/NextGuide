@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="52dp"
+    android:layout_height="52dp"
+    android:background="#55000000"
+    >
+
+    <ImageView
+        android:id="@+id/channel_image"
+        android:layout_height="40dp"
+        android:layout_width="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/channel_callsign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:textSize="10sp"
+        android:text="FOX"
+        android:textColor="#fff"/>
+    <TextView
+        android:id="@+id/channel_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="3dp"
+        android:background="@android:color/transparent"
+        android:text="002"
+        android:textSize="12sp"
+        android:textColor="#fff"/>
+
+</RelativeLayout>

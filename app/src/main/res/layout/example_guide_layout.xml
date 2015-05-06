@@ -15,8 +15,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -24,7 +24,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -45,7 +45,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -60,8 +60,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -70,8 +68,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -79,7 +77,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -100,7 +98,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -115,8 +113,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -125,8 +121,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -134,7 +130,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -155,7 +151,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -170,7 +166,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -179,8 +174,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -188,7 +183,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -209,7 +204,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -224,7 +219,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -233,8 +227,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -242,7 +236,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -263,7 +257,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -278,7 +272,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -287,8 +280,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -296,7 +289,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -317,7 +310,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -332,7 +325,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -341,8 +333,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -350,7 +342,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -371,7 +363,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -386,7 +378,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -395,8 +386,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -404,7 +395,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -425,7 +416,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -440,7 +431,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -449,8 +439,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -458,7 +448,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -479,7 +469,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -494,7 +484,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -503,8 +492,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -512,7 +501,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -533,7 +522,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -548,7 +537,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -557,8 +545,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -566,7 +554,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -587,7 +575,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -602,7 +590,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -611,8 +598,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -620,7 +607,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -641,7 +628,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -656,7 +643,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -665,8 +651,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -674,7 +660,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -695,7 +681,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -710,7 +696,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -719,8 +704,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -728,7 +713,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -749,7 +734,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -764,7 +749,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -773,8 +757,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -782,7 +766,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -803,7 +787,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -818,7 +802,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -827,8 +810,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -836,7 +819,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -857,7 +840,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -872,7 +855,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
     <!-- Row 1 with single column -->
     <TableRow
         android:layout_height="wrap_content"
@@ -881,8 +863,8 @@
 
         <TextView
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textSize="18dp" android:text="Row 1"  android:layout_span="3"
-            android:padding="18dip" android:background="#b0b0b0"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="16dp" android:background="#b0b0b0"
             android:textColor="#000"/>
 
     </TableRow>
@@ -890,7 +872,7 @@
     <!-- Row 2 with 3 columns -->
 
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="match_parent">
         <TextView
             android:text="Row 2 column 1"
@@ -911,7 +893,7 @@
 
     <!-- Row 3 with 2 columns -->
     <TableRow
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_width="fill_parent"
         android:gravity="center_horizontal">
         <TextView
@@ -926,8 +908,6 @@
             android:textColor="#000000"
             android:padding="18dip" android:gravity="left"/>
     </TableRow>
-
-
 
 
 </TableLayout>

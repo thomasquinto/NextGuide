@@ -4,12 +4,21 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+
+import org.json.JSONArray;
 
 
 /**
@@ -21,70 +30,63 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class GuideFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_HEADEND_ID = "headendId";
+    private static final String DEFAULT_HEADEND_ID = "DITV807";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String mHeadendId;
 
     private OnFragmentInteractionListener mListener;
+    private View mView;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param headendId TMS Headend ID
      * @return A new instance of fragment GuideFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static GuideFragment newInstance(String param1, String param2) {
+    public static GuideFragment newInstance(String headendId) {
         GuideFragment fragment = new GuideFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_HEADEND_ID, headendId);
         fragment.setArguments(args);
         return fragment;
     }
 
     public GuideFragment() {
-        // Required empty public constructor
+        mHeadendId = DEFAULT_HEADEND_ID;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mHeadendId = getArguments().getString(ARG_HEADEND_ID);
         }
 
         setHasOptionsMenu(true);
-
-        //RequestQueue queue = Volley.newRequestQueue(this);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_guide, container, false);
+        mView = inflater.inflate(R.layout.fragment_guide, container, false);
 
-        GuideScrollView guideScrollView = (GuideScrollView)v.findViewById(R.id.guide_scroll_view);
-        GuideScrollView channelScrollView = (GuideScrollView)v.findViewById(R.id.channel_scroll_view);
-        guideScrollView.addScrollYListener(channelScrollView);
-        channelScrollView.addScrollYListener(guideScrollView);
+        GuideScrollView guideScrollView = (GuideScrollView)mView.findViewById(R.id.guide_scroll_view);
+        ChannelListView channelListView = (ChannelListView)mView.findViewById(R.id.channel_list);
+        guideScrollView.addScrollYListener(channelListView);
+        channelListView.addScrollYListener(guideScrollView);
 
-        GuideHorizontalScrollView guideHorizontalScrollView = (GuideHorizontalScrollView)v.findViewById(R.id.guide_horiz_scroll_view);
-        GuideHorizontalScrollView timeHeaderScrollView = (GuideHorizontalScrollView)v.findViewById(R.id.time_header_scroll_view);
+        GuideHorizontalScrollView guideHorizontalScrollView = (GuideHorizontalScrollView)mView.findViewById(R.id.guide_horiz_scroll_view);
+        GuideHorizontalScrollView timeHeaderScrollView = (GuideHorizontalScrollView)mView.findViewById(R.id.time_header_scroll_view);
         guideHorizontalScrollView.addScrollXListener(timeHeaderScrollView);
         timeHeaderScrollView.addScrollXListener(guideHorizontalScrollView);
 
-        return v;
+        requestChannels();
+
+        return mView;
     }
 
     @Override
@@ -150,4 +152,34 @@ public class GuideFragment extends Fragment {
         public void scrollXChanged(int x);
     }
 
+    private void requestChannels() {
+        String url = WebManager.getInstance(getActivity()).getRequestChannelsUrl(mHeadendId);
+        Log.d(getClass().getSimpleName(), "URL:" + url);
+
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d(getClass().getSimpleName(), "Response: " + response.toString());
+                buildChannelList(response);
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(getClass().getSimpleName(), "Response Error:", error);
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        WebManager.getInstance(getActivity()).addToRequestQueue(request);
+    }
+
+    private void buildChannelList(JSONArray channelArray) {
+        ChannelListAdapter channelListAdapter = new ChannelListAdapter(getActivity(), channelArray);
+
+        ListView channelListView = (ListView)mView.findViewById(R.id.channel_list);
+        channelListView.setAdapter(channelListAdapter);
+    }
 }
