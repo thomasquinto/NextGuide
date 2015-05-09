@@ -2,8 +2,11 @@ package com.nextguide.nextguide;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -19,6 +25,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -37,6 +48,8 @@ public class GuideFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private View mView;
+    private ChannelListView mChannelListView;
+    private int[] mChannelListViewIndexAndPos;
 
     /**
      * Use this factory method to create a new instance of
@@ -74,13 +87,21 @@ public class GuideFragment extends Fragment {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_guide, container, false);
 
-        GuideScrollView guideScrollView = (GuideScrollView)mView.findViewById(R.id.guide_scroll_view);
-        ChannelListView channelListView = (ChannelListView)mView.findViewById(R.id.channel_list);
-        guideScrollView.addScrollYListener(channelListView);
-        channelListView.addScrollYListener(guideScrollView);
+        GuideScrollView guideScrollView = (GuideScrollView) mView.findViewById(R.id.guide_scroll_view);
+        mChannelListView = (ChannelListView) mView.findViewById(R.id.channel_list);
 
-        GuideHorizontalScrollView guideHorizontalScrollView = (GuideHorizontalScrollView)mView.findViewById(R.id.guide_horiz_scroll_view);
-        GuideHorizontalScrollView timeHeaderScrollView = (GuideHorizontalScrollView)mView.findViewById(R.id.time_header_scroll_view);
+        /*
+        if(mChannelListViewIndexAndPos != null) {
+            Log.d(getClass().getSimpleName(), "SETTING INDEX/POS: " + mChannelListViewIndexAndPos[0] + "/" + mChannelListViewIndexAndPos[1]);
+            mChannelListView.setSelectionFromTop(mChannelListViewIndexAndPos[0], mChannelListViewIndexAndPos[1]);
+        }
+        */
+
+        guideScrollView.addScrollYListener(mChannelListView);
+        mChannelListView.addScrollYListener(guideScrollView);
+
+        GuideHorizontalScrollView guideHorizontalScrollView = (GuideHorizontalScrollView) mView.findViewById(R.id.guide_horiz_scroll_view);
+        GuideHorizontalScrollView timeHeaderScrollView = (GuideHorizontalScrollView) mView.findViewById(R.id.time_header_scroll_view);
         guideHorizontalScrollView.addScrollXListener(timeHeaderScrollView);
         timeHeaderScrollView.addScrollXListener(guideHorizontalScrollView);
 
@@ -90,14 +111,14 @@ public class GuideFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_guide, menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == R.id.guide_settings) {
+        if (item.getItemId() == R.id.guide_settings) {
             return true;
         }
 
@@ -122,6 +143,15 @@ public class GuideFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        Log.d(getClass().getSimpleName(), "onDestroyView() invoked");
+        mChannelListViewIndexAndPos = mChannelListView.getScrollIndexAndPosition();
+    }
+
 
     @Override
     public void onDetach() {
@@ -162,7 +192,31 @@ public class GuideFragment extends Fragment {
             @Override
             public void onResponse(JSONArray response) {
                 Log.d(getClass().getSimpleName(), "Response: " + response.toString());
+
+                /*
+                JSONArray jsonArray = new JSONArray();
+                for(int i=0; i < 20; i++) {
+                    try {
+                        jsonArray.put(i, response.get(i));
+                    } catch(Exception e) {}
+                }
+                response = jsonArray;
+                */
+
                 buildChannelList(response);
+
+                //TODO: call requestGrid that will invoke buildChannelRows in callback:
+
+                createTableRows(response);//TEST ONLY!
+
+                /*
+                GuideScrollView gsv = (GuideScrollView) getActivity().findViewById(R.id.guide_scroll_view);
+                GuideHorizontalScrollView ghsv = (GuideHorizontalScrollView) getActivity().findViewById(R.id.guide_horiz_scroll_view);
+                ChannelListView clv = (ChannelListView) getActivity().findViewById(R.id.channel_list);
+                TableLayout gl = (TableLayout) getActivity().findViewById(R.id.guide_layout);
+
+                Log.d(getClass().getSimpleName(), "Sizes: " + gsv.getHeight() + ", " + ghsv.getHeight() + ", " + clv.getHeight() + ", " + gl.getHeight());
+                */
             }
         }, new Response.ErrorListener() {
 
@@ -179,7 +233,128 @@ public class GuideFragment extends Fragment {
     private void buildChannelList(JSONArray channelArray) {
         ChannelListAdapter channelListAdapter = new ChannelListAdapter(getActivity(), channelArray);
 
-        ListView channelListView = (ListView)mView.findViewById(R.id.channel_list);
+        ListView channelListView = (ListView) mView.findViewById(R.id.channel_list);
         channelListView.setAdapter(channelListAdapter);
     }
+
+    private void buildChannelRows(JSONArray gridResult) {
+
+    }
+
+    private class Show {
+        String title;
+        String subTitle;
+        Date startDate;
+        Date endDate;
+    }
+
+    private class AiringCell {
+        Show show;
+    }
+
+    private class ChannelRow {
+        int stationId;
+        List<AiringCell> cells = new ArrayList<AiringCell>();
+    }
+
+    public static int dpToPx(int dp, Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        return (int) ((dp * displayMetrics.density) + 0.5);
+    }
+
+    public void createTableRows(JSONArray channelArray) {
+        Log.d(getClass().getSimpleName(), "NUM ROWS: " + channelArray.length());
+
+        TableLayout tl = (TableLayout) getActivity().findViewById(R.id.guide_layout);
+        int pixelHeight = GuideFragment.dpToPx(52, getActivity());
+        pixelHeight += 2;
+
+        String channelNum;
+
+        for (int i = 0; i < channelArray.length(); i++) {
+
+            try {
+                JSONObject jsonObj = (JSONObject) channelArray.get(i);
+
+                channelNum = "" + jsonObj.getInt("channel_num");
+
+                TableRow tr = new TableRow(getActivity());
+                //android.widget.TableRow.LayoutParams lp = new android.widget.TableRow.LayoutParams(android.widget.TableRow.LayoutParams.MATCH_PARENT, android.widget.TableRow.LayoutParams.WRAP_CONTENT);
+                android.widget.TableRow.LayoutParams lp = new android.widget.TableRow.LayoutParams(android.widget.TableRow.LayoutParams.MATCH_PARENT, pixelHeight);
+                tr.setLayoutParams(lp);
+
+                TextView tvLeft = new TextView(getActivity());
+                tvLeft.setLayoutParams(lp);
+                if (i % 2 == 0) {
+                    tvLeft.setBackgroundColor(Color.parseColor("#DCDCDC"));
+                } else {
+                    tvLeft.setBackgroundColor(Color.parseColor("#CAC9C9"));
+                }
+
+                tvLeft.setText("Channel " + channelNum + ".1 Index " + i);
+                TextView tvCenter = new TextView(getActivity());
+                tvCenter.setLayoutParams(lp);
+
+                if (i % 2 == 0) {
+                    tvCenter.setBackgroundColor(Color.parseColor("#D3D3D3"));
+                } else {
+                    tvCenter.setBackgroundColor(Color.parseColor("#DCDCDC"));
+                }
+                tvCenter.setText("Channel " + channelNum + ".2 Index " + i);
+                TextView tvRight = new TextView(getActivity());
+                tvRight.setLayoutParams(lp);
+
+                if (i % 2 == 0) {
+                    tvRight.setBackgroundColor(Color.parseColor("#CAC9C9"));
+                } else {
+                    tvRight.setBackgroundColor(Color.parseColor("#D3D3D3"));
+                }
+                tvRight.setText("Channel " + channelNum + ".3 Index " + i);
+
+                tr.addView(tvLeft);
+                tr.addView(tvCenter);
+                tr.addView(tvRight);
+
+                tl.addView(tr, new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, pixelHeight));
+
+            } catch (Exception e) {
+                Log.e(getClass().getSimpleName(), "Exception:", e);
+            }
+        }
+    }
+
+    /*
+    private void initChannelRows(JSONArray gridArray) {
+        List<ChannelRow> rows = new ArrayList<ChannelRow>();
+        Map<Integer, ChannelRow> stationIdToRow = new HashMap<Integer, ChannelRow>();
+
+        for(int i=0; i < gridArray.length(); i++) {
+
+            try {
+                JSONObject jsonObj = (JSONObject) gridArray.get(i);
+
+                ChannelRow channelRow = new ChannelRow();
+
+                JSONArray airings = jsonObj.getJSONArray("airings");
+                for(int j=0; j < airings.length(); j++) {
+
+                }
+
+                channelListItem.channelNum = "" + jsonObj.getInt("channel_num");
+                channelListItem.callSign = jsonObj.getString("callsign");
+                channelListItem.stationId = jsonObj.getString("prg_svc_id");
+                channelListItem.imageUrl = jsonObj.getString("image_url");
+
+                Log.d(getClass().getSimpleName(),
+                        "Channel List Item " + i + ": " +
+                                channelListItem.channelNum +
+                                "(" + channelListItem.callSign + ")");
+
+                mList.add(channelListItem);
+            } catch(Exception e) {
+                Log.e(getClass().getSimpleName(), "Exception:", e);
+            }
+        }
+    }
+    */
 }

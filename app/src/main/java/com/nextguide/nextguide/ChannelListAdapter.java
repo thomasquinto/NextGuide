@@ -50,7 +50,7 @@ public class ChannelListAdapter extends BaseAdapter implements ListAdapter {
         }
 
         public void setItem(ChannelListItem item) {
-            Log.d(getClass().getSimpleName(), "CHANNEL: " + item.callSign);
+            //Log.d(getClass().getSimpleName(), "CHANNEL: " + item.callSign);
 
             mItem = item;
 
@@ -61,6 +61,7 @@ public class ChannelListAdapter extends BaseAdapter implements ListAdapter {
             mCallSignView.setText(item.callSign);
 
             mImageView = (ImageView)mView.findViewById(R.id.channel_image);
+            loadImage();
         }
 
         public void loadImage() {
@@ -82,24 +83,20 @@ public class ChannelListAdapter extends BaseAdapter implements ListAdapter {
             String url = mItem.imageUrl;
             if(!url.startsWith("http")) url = IMAGE_HOST_URL + url;
 
-            Log.d(getClass().getSimpleName(), "Loading image: " + url);
+            //Log.d(getClass().getSimpleName(), "Loading image: " + url);
             imageLoader.get(url, new ImageLoader.ImageListener() {
                 @Override
                 public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
 
-                    Log.d(getClass().getSimpleName(), "Loaded image: " + imageContainer.getRequestUrl());
+                    //Log.d(getClass().getSimpleName(), "Loaded image: " + imageContainer.getRequestUrl());
 
                     if (imageContainer.getRequestUrl().endsWith(mItem.imageUrl)) {
-                        final Bitmap bm = imageContainer.getBitmap();
-                        mView.post(new Runnable() {
-                            public void run() {
-                                mImageView.setImageBitmap(bm);
-                                mImageView.setVisibility(VISIBLE);
-                                mCallSignView.setVisibility(GONE);
-                            }
-                        });
+                        Bitmap bm = imageContainer.getBitmap();
+                        mImageView.setImageBitmap(bm);
+                        mImageView.setVisibility(VISIBLE);
+                        mCallSignView.setVisibility(GONE);
                     } else {
-                        Log.d(getClass().getSimpleName(), "Expecting image: " + mItem.imageUrl + ", but got image: " + imageContainer.getRequestUrl());
+                        //Log.d(getClass().getSimpleName(), "Expecting image: " + mItem.imageUrl + ", but got image: " + imageContainer.getRequestUrl());
                     }
                 }
 
@@ -169,7 +166,6 @@ public class ChannelListAdapter extends BaseAdapter implements ListAdapter {
         }
 
         ((ChannelListItemView) convertView).setItem(mList.get(position));
-        ((ChannelListItemView)convertView).loadImage();
 
         return convertView;
     }

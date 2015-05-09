@@ -13,6 +13,8 @@ import java.util.Set;
  */
 public class GuideScrollView extends ScrollView implements GuideFragment.ScrollYListener {
 
+    private boolean mDisableYListener = false;
+
     public GuideScrollView(Context context) {
         super(context);
     }
@@ -26,6 +28,11 @@ public class GuideScrollView extends ScrollView implements GuideFragment.ScrollY
     }
 
     public void onScrollChanged(int l, int t, int old_l, int old_t) {
+        if(mDisableYListener) {
+            Log.d(getClass().getSimpleName(), "Ignoring Y Scroll change");
+            return;
+        }
+
         Log.d(getClass().getSimpleName(), "Scroll Y: " + getScrollY());
 
         for(GuideFragment.ScrollYListener listener: mListeners) {
@@ -37,8 +44,11 @@ public class GuideScrollView extends ScrollView implements GuideFragment.ScrollY
 
     public void scrollYChanged(int y) {
         Log.d(getClass().getSimpleName(), "Changing Y Scroll to " + y);
-        //setScrollY(y);
+
+        // Avoid symmetric listener "echo" propagation effect:
+        mDisableYListener = true;
         scrollTo(0, y);
+        mDisableYListener = false;
     }
 
     private Set<GuideFragment.ScrollYListener> mListeners = new HashSet<GuideFragment.ScrollYListener>();

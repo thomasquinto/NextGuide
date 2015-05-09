@@ -14,6 +14,8 @@ import java.util.Set;
  */
 public class ChannelListView extends ListView implements GuideFragment.ScrollYListener {
 
+    private boolean mDisableYListener = false;
+
     public ChannelListView(Context context) {
         super(context);
     }
@@ -39,11 +41,16 @@ public class ChannelListView extends ListView implements GuideFragment.ScrollYLi
 
     public void onScrollChanged(int l, int t, int old_l, int old_t) {
 
+        if(mDisableYListener) {
+            Log.d(getClass().getSimpleName(), "Ignoring Y Scroll change");
+            return;
+        }
+
         int scrollY = getScroll();
 
         Log.d(getClass().getSimpleName(), "Scroll Y: " + scrollY);
 
-        for(GuideFragment.ScrollYListener listener: mListeners) {
+        for(GuideFragment.ScrollYListener listener : mListeners) {
             listener.scrollYChanged(scrollY);
         }
     }
@@ -52,7 +59,22 @@ public class ChannelListView extends ListView implements GuideFragment.ScrollYLi
 
     public void scrollYChanged(int y) {
         Log.d(getClass().getSimpleName(), "Changing Y Scroll to " + y);
-        //setScrollY(y);
+
+        int index = 0;
+        int pos = 0;
+
+        View c = getChildAt(0); //this is the first visible row
+        if(c != null) {
+            index = y / c.getHeight();
+            pos = -(y % c.getHeight());
+        }
+
+        Log.d(getClass().getSimpleName(), "Setting new index/position: " + index + "/" + pos);
+
+        // Avoid symmetric listener "echo" propagation effect:
+        mDisableYListener = true;
+        this.setSelectionFromTop(index, pos);
+        mDisableYListener = false;
     }
 
     private Set<GuideFragment.ScrollYListener> mListeners = new HashSet<GuideFragment.ScrollYListener>();
@@ -65,4 +87,15 @@ public class ChannelListView extends ListView implements GuideFragment.ScrollYLi
         mListeners.remove(listener);
     }
 
+    public int[] getScrollIndexAndPosition() {
+        int[] indexAndPos = new int[2];
+
+        // save index and top position
+        // see http://stackoverflow.com/questions/3014089/maintain-save-restore-scroll-position-when-returning-to-a-listview
+        indexAndPos[0] = getFirstVisiblePosition();
+        View v = getChildAt(0);
+        indexAndPos[1] = (v == null) ? 0 : (v.getTop() - getPaddingTop());
+
+        return indexAndPos;
+    }
 }

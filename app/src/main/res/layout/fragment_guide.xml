@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.nextguide.nextguide.GuideFragment">
 
-
+    <!-- Time Header Bar -->
     <com.nextguide.nextguide.GuideHorizontalScrollView
         android:id="@+id/time_header_scroll_view"
         android:layout_width="match_parent"
@@ -18,10 +18,10 @@
 
         <TextView
             android:id="@+id/guide_time_header"
-            android:layout_width="8000dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="18dp"
-            android:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            android:text="|xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx|"
             android:gravity="left"
             android:background="#AA000000"
             android:textColor="#000"
@@ -29,6 +29,7 @@
         />
     </com.nextguide.nextguide.GuideHorizontalScrollView>
 
+    <!-- Horizontal Palette for Guide -->
     <com.nextguide.nextguide.GuideHorizontalScrollView
         android:id="@+id/guide_horiz_scroll_view"
         android:layout_width="match_parent"
@@ -37,6 +38,7 @@
         android:scrollbars="none"
         >
 
+        <!-- Vertical palette, holding TableLayout for grid (channel) rows -->
         <com.nextguide.nextguide.GuideScrollView
             android:id="@+id/guide_scroll_view"
             android:layout_width="match_parent"
@@ -44,42 +46,32 @@
             android:scrollbars="none"
             >
 
+            <!--
             <include layout="@layout/example_guide_layout"/>
+            -->
+            <TableLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/guide_layout"
+                android:layout_width="800dp"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"
+                android:background="#ffffff"
+                android:padding="0dp"
+                />
 
         </com.nextguide.nextguide.GuideScrollView>
 
     </com.nextguide.nextguide.GuideHorizontalScrollView>
 
-
-
-    <com.nextguide.nextguide.GuideScrollView
-        android:id="@+id/channel_scroll_view"
+    <!-- Channel List View column that hovers above Guide Palette -->
+    <com.nextguide.nextguide.ChannelListView
+        android:id="@+id/channel_list"
         android:layout_width="52dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
-        android:fillViewport="true"
-        >
-
-        <com.nextguide.nextguide.ChannelListView
-            android:id="@+id/channel_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="0dp"
-            android:background="#AAb0b0b0"
-            />
-
-        <!--
-        <TextView
-            android:id="@+id/channel_column"
-            android:layout_width="match_parent"
-            android:layout_height="8000dp"
-            android:padding="18dip"
-            android:background="#AAb0b0b0"
-            android:text="Hover Hover Hover Hover Hover Hover"
-            />
-         -->
-
-    </com.nextguide.nextguide.GuideScrollView>
-
+        android:padding="0dp"
+        android:layout_below="@id/time_header_scroll_view"
+        android:background="#AAb0b0b0"
+        />
 
 </RelativeLayout>
