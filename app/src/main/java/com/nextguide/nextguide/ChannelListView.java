@@ -103,15 +103,4 @@ public class ChannelListView extends ListView implements GuideFragment.ScrollYLi
         mListeners.remove(listener);
     }
 
-    public int[] getScrollIndexAndPosition() {
-        int[] indexAndPos = new int[2];
-
-        // save index and top position
-        // see http://stackoverflow.com/questions/3014089/maintain-save-restore-scroll-position-when-returning-to-a-listview
-        indexAndPos[0] = getFirstVisiblePosition();
-        View v = getChildAt(0);
-        indexAndPos[1] = (v == null) ? 0 : (v.getTop() - getPaddingTop());
-
-        return indexAndPos;
-    }
 }

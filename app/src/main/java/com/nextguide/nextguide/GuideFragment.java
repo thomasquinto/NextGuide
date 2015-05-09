@@ -165,7 +165,10 @@ public class GuideFragment extends Fragment {
 
     public void onSaveInstanceState (Bundle outState) {
         outState.putInt(ARG_SCROLL_Y, mChannelListView.getVerticalScroll());
-        outState.putString(ARG_CHANNEL_ARRAY, mChannelArray.toString());
+
+        if(mChannelArray != null) {
+            outState.putString(ARG_CHANNEL_ARRAY, mChannelArray.toString());
+        }
     }
 
     @Override
