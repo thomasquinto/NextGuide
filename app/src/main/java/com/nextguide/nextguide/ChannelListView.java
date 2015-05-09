@@ -28,7 +28,7 @@ public class ChannelListView extends ListView implements GuideFragment.ScrollYLi
         super(context, attrs, defStyleAttr);
     }
 
-    private int getScroll() {
+    public int getVerticalScroll() {
         View c = getChildAt(0); //this is the first visible row
         if(c == null) return 0;
 
@@ -39,27 +39,13 @@ public class ChannelListView extends ListView implements GuideFragment.ScrollYLi
         return scrollY;
     }
 
-    public void onScrollChanged(int l, int t, int old_l, int old_t) {
+    private int mInitialScrollY;
 
-        if(mDisableYListener) {
-            Log.d(getClass().getSimpleName(), "Ignoring Y Scroll change");
-            return;
-        }
-
-        int scrollY = getScroll();
-
-        Log.d(getClass().getSimpleName(), "Scroll Y: " + scrollY);
-
-        for(GuideFragment.ScrollYListener listener : mListeners) {
-            listener.scrollYChanged(scrollY);
-        }
+    public void setInitialScrollY(int y) {
+        mInitialScrollY = y;
     }
 
-    // ScrollYListener
-
-    public void scrollYChanged(int y) {
-        Log.d(getClass().getSimpleName(), "Changing Y Scroll to " + y);
-
+    private void setScrollFromY(int y) {
         int index = 0;
         int pos = 0;
 
@@ -75,6 +61,36 @@ public class ChannelListView extends ListView implements GuideFragment.ScrollYLi
         mDisableYListener = true;
         this.setSelectionFromTop(index, pos);
         mDisableYListener = false;
+    }
+
+    public void onScrollChanged(int l, int t, int old_l, int old_t) {
+
+        if(mInitialScrollY != 0) {
+            setScrollFromY(mInitialScrollY);
+            mInitialScrollY = 0;
+            return;
+        }
+
+        if(mDisableYListener) {
+            Log.d(getClass().getSimpleName(), "Ignoring Y Scroll change");
+            return;
+        }
+
+        int scrollY = getVerticalScroll();
+
+        Log.d(getClass().getSimpleName(), "Scroll Y: " + scrollY);
+
+        for(GuideFragment.ScrollYListener listener : mListeners) {
+            listener.scrollYChanged(scrollY);
+        }
+    }
+
+    // ScrollYListener
+
+    public void scrollYChanged(int y) {
+        Log.d(getClass().getSimpleName(), "Changing Y Scroll to " + y);
+
+        setScrollFromY(y);
     }
 
     private Set<GuideFragment.ScrollYListener> mListeners = new HashSet<GuideFragment.ScrollYListener>();

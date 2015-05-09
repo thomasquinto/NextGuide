@@ -132,10 +132,12 @@ public class ChannelListAdapter extends BaseAdapter implements ListAdapter {
                 channelListItem.stationId = jsonObj.getString("prg_svc_id");
                 channelListItem.imageUrl = jsonObj.getString("image_url");
 
+                /*
                 Log.d(getClass().getSimpleName(),
                         "Channel List Item " + i + ": " +
                                 channelListItem.channelNum +
                                 "(" + channelListItem.callSign + ")");
+                */
 
                 mList.add(channelListItem);
             } catch(Exception e) {

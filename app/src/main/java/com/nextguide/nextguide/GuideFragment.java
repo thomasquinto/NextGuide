@@ -6,6 +6,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -41,15 +44,19 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class GuideFragment extends Fragment {
-    private static final String ARG_HEADEND_ID = "headendId";
     private static final String DEFAULT_HEADEND_ID = "DITV807";
 
+    private static final String ARG_HEADEND_ID = "headendId";
+    private static final String ARG_SCROLL_Y = "scrollY";
+    private static final String ARG_CHANNEL_ARRAY = "channelArray";
+
     private String mHeadendId;
+    private int scrollY;
+    private JSONArray mChannelArray;
 
     private OnFragmentInteractionListener mListener;
     private View mView;
     private ChannelListView mChannelListView;
-    private int[] mChannelListViewIndexAndPos;
 
     /**
      * Use this factory method to create a new instance of
@@ -89,14 +96,6 @@ public class GuideFragment extends Fragment {
 
         GuideScrollView guideScrollView = (GuideScrollView) mView.findViewById(R.id.guide_scroll_view);
         mChannelListView = (ChannelListView) mView.findViewById(R.id.channel_list);
-
-        /*
-        if(mChannelListViewIndexAndPos != null) {
-            Log.d(getClass().getSimpleName(), "SETTING INDEX/POS: " + mChannelListViewIndexAndPos[0] + "/" + mChannelListViewIndexAndPos[1]);
-            mChannelListView.setSelectionFromTop(mChannelListViewIndexAndPos[0], mChannelListViewIndexAndPos[1]);
-        }
-        */
-
         guideScrollView.addScrollYListener(mChannelListView);
         mChannelListView.addScrollYListener(guideScrollView);
 
@@ -105,7 +104,27 @@ public class GuideFragment extends Fragment {
         guideHorizontalScrollView.addScrollXListener(timeHeaderScrollView);
         timeHeaderScrollView.addScrollXListener(guideHorizontalScrollView);
 
-        requestChannels();
+        if(savedInstanceState != null) {
+
+            if(savedInstanceState.getInt(ARG_SCROLL_Y) != 0) {
+                scrollY = savedInstanceState.getInt(ARG_SCROLL_Y);
+                Log.d(getClass().getSimpleName(), "SAVED Scroll Y :" + scrollY);
+            }
+
+            if(savedInstanceState.getString(ARG_CHANNEL_ARRAY) != null) {
+                try {
+                    mChannelArray = new JSONArray(savedInstanceState.getString(ARG_CHANNEL_ARRAY));
+                    initChannels(mChannelArray);
+                } catch(JSONException je) {
+                    Log.w(getClass().getSimpleName(), "Channel JSON Exception", je);
+                }
+            }
+
+        }
+
+        if(mChannelArray == null) {
+            requestChannels();
+        }
 
         return mView;
     }
@@ -144,12 +163,17 @@ public class GuideFragment extends Fragment {
         }
     }
 
+    public void onSaveInstanceState (Bundle outState) {
+        outState.putInt(ARG_SCROLL_Y, mChannelListView.getVerticalScroll());
+        outState.putString(ARG_CHANNEL_ARRAY, mChannelArray.toString());
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
 
         Log.d(getClass().getSimpleName(), "onDestroyView() invoked");
-        mChannelListViewIndexAndPos = mChannelListView.getScrollIndexAndPosition();
+
     }
 
 
@@ -182,6 +206,28 @@ public class GuideFragment extends Fragment {
         public void scrollXChanged(int x);
     }
 
+    private void initChannels(final JSONArray channelArray) {
+        mChannelArray = channelArray;
+
+        buildChannelList(channelArray);
+
+        //TODO: call requestGrid that will invoke buildChannelRows in callback:
+        //requestGrid();
+
+        //TEST ONLY!!!
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                buildChannelRowsTest(channelArray);
+            }
+        }, 100);
+
+        if(scrollY != 0) {
+            Log.d(getClass().getSimpleName(), "Setting scroll Y to :" + scrollY);
+            mChannelListView.setInitialScrollY(scrollY);
+        }
+    }
+
     private void requestChannels() {
         String url = WebManager.getInstance(getActivity()).getRequestChannelsUrl(mHeadendId);
         Log.d(getClass().getSimpleName(), "URL:" + url);
@@ -203,20 +249,7 @@ public class GuideFragment extends Fragment {
                 response = jsonArray;
                 */
 
-                buildChannelList(response);
-
-                //TODO: call requestGrid that will invoke buildChannelRows in callback:
-
-                createTableRows(response);//TEST ONLY!
-
-                /*
-                GuideScrollView gsv = (GuideScrollView) getActivity().findViewById(R.id.guide_scroll_view);
-                GuideHorizontalScrollView ghsv = (GuideHorizontalScrollView) getActivity().findViewById(R.id.guide_horiz_scroll_view);
-                ChannelListView clv = (ChannelListView) getActivity().findViewById(R.id.channel_list);
-                TableLayout gl = (TableLayout) getActivity().findViewById(R.id.guide_layout);
-
-                Log.d(getClass().getSimpleName(), "Sizes: " + gsv.getHeight() + ", " + ghsv.getHeight() + ", " + clv.getHeight() + ", " + gl.getHeight());
-                */
+                initChannels(response);
             }
         }, new Response.ErrorListener() {
 
@@ -262,10 +295,10 @@ public class GuideFragment extends Fragment {
         return (int) ((dp * displayMetrics.density) + 0.5);
     }
 
-    public void createTableRows(JSONArray channelArray) {
+    public void buildChannelRowsTest(JSONArray channelArray) {
         Log.d(getClass().getSimpleName(), "NUM ROWS: " + channelArray.length());
 
-        TableLayout tl = (TableLayout) getActivity().findViewById(R.id.guide_layout);
+        TableLayout tl = (TableLayout)mView.findViewById(R.id.guide_layout);
         int pixelHeight = GuideFragment.dpToPx(52, getActivity());
         pixelHeight += 2;
 
