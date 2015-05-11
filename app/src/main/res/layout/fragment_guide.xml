@@ -72,6 +72,7 @@
         android:padding="0dp"
         android:layout_below="@id/time_header_scroll_view"
         android:background="#AAb0b0b0"
+        android:divider="@null"
         />
 
 </RelativeLayout>

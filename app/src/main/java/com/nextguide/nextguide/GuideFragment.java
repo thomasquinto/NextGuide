@@ -99,6 +99,8 @@ public class GuideFragment extends Fragment {
         guideScrollView.addScrollYListener(mChannelListView);
         mChannelListView.addScrollYListener(guideScrollView);
 
+        mChannelListView.setFastScrollEnabled(true);
+
         GuideHorizontalScrollView guideHorizontalScrollView = (GuideHorizontalScrollView) mView.findViewById(R.id.guide_horiz_scroll_view);
         GuideHorizontalScrollView timeHeaderScrollView = (GuideHorizontalScrollView) mView.findViewById(R.id.time_header_scroll_view);
         guideHorizontalScrollView.addScrollXListener(timeHeaderScrollView);
@@ -302,10 +304,14 @@ public class GuideFragment extends Fragment {
         Log.d(getClass().getSimpleName(), "NUM ROWS: " + channelArray.length());
 
         TableLayout tl = (TableLayout)mView.findViewById(R.id.guide_layout);
-        int pixelHeight = GuideFragment.dpToPx(52, getActivity());
-        pixelHeight += 2;
 
         String channelNum;
+
+        int[] colors = new int[] {
+                Color.parseColor("#DCDCDC"),
+                Color.parseColor("#CAC9C9"),
+                Color.parseColor("#D3D3D3")
+        };
 
         for (int i = 0; i < channelArray.length(); i++) {
 
@@ -315,43 +321,37 @@ public class GuideFragment extends Fragment {
                 channelNum = "" + jsonObj.getInt("channel_num");
 
                 TableRow tr = new TableRow(getActivity());
-                //android.widget.TableRow.LayoutParams lp = new android.widget.TableRow.LayoutParams(android.widget.TableRow.LayoutParams.MATCH_PARENT, android.widget.TableRow.LayoutParams.WRAP_CONTENT);
-                android.widget.TableRow.LayoutParams lp = new android.widget.TableRow.LayoutParams(android.widget.TableRow.LayoutParams.MATCH_PARENT, pixelHeight);
+                //android.widget.TableRow.LayoutParams lp = new android.widget.TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                android.widget.TableRow.LayoutParams lp = new android.widget.TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dpToPx(52, getActivity()));
                 tr.setLayoutParams(lp);
 
-                TextView tvLeft = new TextView(getActivity());
-                tvLeft.setLayoutParams(lp);
-                if (i % 2 == 0) {
-                    tvLeft.setBackgroundColor(Color.parseColor("#DCDCDC"));
-                } else {
-                    tvLeft.setBackgroundColor(Color.parseColor("#CAC9C9"));
+                for(int j = 0; j < 3; j++) {
+
+                    TextView textView = new TextView(getActivity());
+                    textView.setLayoutParams(lp);
+                    textView.setBackgroundColor(colors[(i + j) % colors.length]);
+                    textView.setText("Channel " + channelNum + "." + (j + 1) + " Index " + i);
+
+                    tr.addView(textView);
                 }
 
-                tvLeft.setText("Channel " + channelNum + ".1 Index " + i);
-                TextView tvCenter = new TextView(getActivity());
-                tvCenter.setLayoutParams(lp);
+                /*
+                ChannelListAdapter.ChannelListItemView channelListItemView = new ChannelListAdapter.ChannelListItemView(getActivity());
 
-                if (i % 2 == 0) {
-                    tvCenter.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                } else {
-                    tvCenter.setBackgroundColor(Color.parseColor("#DCDCDC"));
-                }
-                tvCenter.setText("Channel " + channelNum + ".2 Index " + i);
-                TextView tvRight = new TextView(getActivity());
-                tvRight.setLayoutParams(lp);
+                ChannelListAdapter.ChannelListItem channelListItem = new ChannelListAdapter.ChannelListItem();
+                //channelListItem.channelNum = "" + jsonObj.getInt("channel_num");
+                //channelListItem.callSign = jsonObj.getString("callsign");
+                //channelListItem.stationId = jsonObj.getString("prg_svc_id");
+                //channelListItem.imageUrl = jsonObj.getString("image_url");
 
-                if (i % 2 == 0) {
-                    tvRight.setBackgroundColor(Color.parseColor("#CAC9C9"));
-                } else {
-                    tvRight.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                }
-                tvRight.setText("Channel " + channelNum + ".3 Index " + i);
+                channelListItemView.setItem(channelListItem);
+                //channelListItemView.setBackgroundColor(Color.parseColor("#D3D3D3"));
+                channelListItemView.setVisibility(View.INVISIBLE);
 
-                tr.addView(tvLeft);
-                tr.addView(tvCenter);
-                tr.addView(tvRight);
+                tr.addView(channelListItemView);
+                */
 
-                tl.addView(tr, new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, pixelHeight));
+                tl.addView(tr, new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
             } catch (Exception e) {
                 Log.e(getClass().getSimpleName(), "Exception:", e);

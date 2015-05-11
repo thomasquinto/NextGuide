@@ -29,14 +29,14 @@ public class ChannelListAdapter extends BaseAdapter implements ListAdapter {
 
     Context mContext;
 
-    private class ChannelListItem {
+    public static class ChannelListItem {
         String channelNum;
         String callSign;
         String stationId;
         String imageUrl;
     }
 
-    private class ChannelListItemView extends FrameLayout {
+    public static class ChannelListItemView extends FrameLayout {
 
         View mView;
         ChannelListItem mItem;

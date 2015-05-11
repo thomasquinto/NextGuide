@@ -6,6 +6,15 @@
     android:background="#55000000"
     >
 
+    <!-- separator for ListView -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#AAffffff"
+        android:layout_alignParentTop="true"
+        >
+    </View>
+
     <ImageView
         android:id="@+id/channel_image"
         android:layout_height="40dp"
