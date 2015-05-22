@@ -32,7 +32,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -53,6 +55,10 @@ public class GuideFragment extends Fragment {
     private String mHeadendId;
     private int scrollY;
     private JSONArray mChannelArray;
+    // k -> v, table row index -> ChannelListItem object
+    private Map<Integer,ChannelListAdapter.ChannelListItem> mChannelMap = new HashMap<Integer,ChannelListAdapter.ChannelListItem>();
+    // k -> v, station ID -> List<Show>
+    private Map<Integer,ChannelRow> mChannelRowMap;
 
     private OnFragmentInteractionListener mListener;
     private View mView;
@@ -233,6 +239,10 @@ public class GuideFragment extends Fragment {
         }
     }
 
+    private void requestGrid(JSONArray channelArray) {
+
+    }
+
     private void requestChannels() {
         String url = WebManager.getInstance(getActivity()).getRequestChannelsUrl(mHeadendId);
         Log.d(getClass().getSimpleName(), "URL:" + url);
@@ -279,20 +289,18 @@ public class GuideFragment extends Fragment {
 
     }
 
-    private class Show {
+    public static class Show {
         String title;
         String subTitle;
         Date startDate;
         Date endDate;
     }
 
-    private class AiringCell {
-        Show show;
-    }
-
-    private class ChannelRow {
+    public static class ChannelRow {
         int stationId;
-        List<AiringCell> cells = new ArrayList<AiringCell>();
+        List<Show> cells = new ArrayList<Show>();
+        Date startDate;
+        Date endDate;
     }
 
     public static int dpToPx(int dp, Context context) {

@@ -7,4 +7,6 @@
     <!-- GuideFragment -->
     <string name="guide_settings">Guide Settings</string>
 
+    <!-- res/layouts/show_cell.xml -->
+    <string name="show_new">NEW</string>
 </resources>
